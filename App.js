@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, TextInput, Button } from 'react-native'
+import { View, Text, TextInput, Button, TouchableOpacity} from 'react-native'
 
 class App extends React.Component{
   state = {
@@ -21,42 +21,63 @@ class App extends React.Component{
   renderTodos = () => {
     return this.state.todo.map(t => {
       return (
-        <Text
-        onPress={() => {this.deleteTodo(t)}}
-        >{ t }</Text>
+        <TouchableOpacity key={t}>
+          <Text
+          style={style.todo}
+          onPress={() => {this.deleteTodo(t)}}
+          >{ t }</Text>
+        </TouchableOpacity>
       )
     })
   }
   render(){
     return(
-      <View style={style.viewStyle}>
-        <Text>Todo App!</Text>
-        <TextInput
-          style={style.inputStyle}
-          onChangeText={(text) => this.setState({text})}
-          value = {this.state.text}
-        />
-        <Button
-          title='Add Todo'
-          color= 'green'
-          onPress={this.addTodo}
-        />
-        {this.renderTodos()}
+      <View style={style.wholeStyle}>
+        <View style={style.viewStyle}>
+          <Text style= {style.header}>Todo App!</Text>
+          <TextInput
+            style={style.inputStyle}
+            onChangeText={(text) => this.setState({text})}
+            value = {this.state.text}
+            />  
+    
+          <Button
+            title='Add Todo'
+            color= '#546e7a'
+            onPress={this.addTodo}
+            />
+            <View style={{marginTop: 100}} />
+          {this.renderTodos()}
+        </View>
       </View>
     )
   }
 }
 
 const style = {
+  wholeStyle:{
+    backgroundColor: "#00bcd4",
+    flex: 1
+  },
   viewStyle: {
-    flex: 1, 
+    marginTop: 30,
     alignItems: 'center', 
-    justifyContent: 'center'
+    justifyContent: 'center',
+    margin: 10,
   },
   inputStyle: {
     height: 40,
-    borderColor: 'green',
+    borderColor: 'white',
     borderWidth: 1
+  },
+  header:{
+    fontSize: 30,
+    color: 'white',
+    fontWeight:'bold'
+  },
+  todo:{
+    fontSize: 24,
+    color: 'white'
   }
 }
 
