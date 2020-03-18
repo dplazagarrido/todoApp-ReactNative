@@ -12,10 +12,18 @@ class App extends React.Component{
     arr.push(newTodo)
     this.setState({todo: arr, text: ""})
   }
+  deleteTodo = (t) => {
+    var arr = this.state.todo;
+    var pos = arr.indexOf(t);
+    arr.splice(pos,1);
+    this.setState({todo: arr});
+  }
   renderTodos = () => {
     return this.state.todo.map(t => {
       return (
-        <Text>{ t }</Text>
+        <Text
+        onPress={() => {this.deleteTodo(t)}}
+        >{ t }</Text>
       )
     })
   }
